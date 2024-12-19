@@ -83,18 +83,24 @@
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-  dunst
-  xclip
-  rofi
-  dmenu
-  tmux
-  git
-  vim
-  htop
-  wget
   curl
+  dmenu
+  dunst
+  git
+  htop
+  mesa
+  mesa.drivers
   nnn
+  openssl
+  picom
+  rofi
+  sxiv
+  tmux
+  unzip
+  vim
   w3m
+  wget
+  xclip
   ];
 
   # List packages installed in system profile. To search, run: $ nix search wget environment.systemPackages = with pkgs; [
