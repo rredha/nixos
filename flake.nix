@@ -1,21 +1,33 @@
 {
-
-
-	description = "Configuration and home-manager flake";
+	description = "NixOS Standard Configuration";
 
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-		unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 	};
 
-	outputs = { nixpkgs, unstable, ...}: {
-		nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-			system = "x86_64-linux";
-			modules = [ ./configuration.nix ];
+	outputs = { self, nixpkgs }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+
+        config = {
+          allowUnFree = true;
+        };
+      };
+
+
+    in
+    {
+		  nixosConfigurations = {
+        std = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit system; };
+
+          modules = [
+            ./configuration.nix
+          ];
+        };
 		};
-    extraArgs = {inherit unstable;};
-
-
 	};
 
 }
